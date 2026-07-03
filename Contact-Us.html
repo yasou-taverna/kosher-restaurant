@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -161,7 +161,7 @@ nav {
         <li><a href="#" class="btn">דף הבית</a></li>
         <li><a href="https://yasou-taverna.github.io/kosher-restaurant/" class="btn">תפריט</a></li>
         <li><a href="#" class="btn">הזמנת מקום</a></li>
-        <li><a href="https://yasou-taverna.github.io/kosher-restaurant/Contact-Us.html" class="btn active">צור קשר</a></li>
+        <li><a href="#" class="btn active">צור קשר</a></li>
     </ul>
 </nav></header>
     <div class="container">
@@ -187,41 +187,33 @@ nav {
 </form>
 
 <script>
-async function sendToWhatsApp(e) {
+function sendToWhatsApp(e) {
   e.preventDefault();
 
-  const data = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    subject: document.getElementById("subject").value,
-    message: document.getElementById("message").value
-  };
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const subject = document.getElementById("subject").value;
+  const message = document.getElementById("message").value;
 
-  // כתובת השרת שלך ב‑Render
-  const API_URL = "https://yasou-server.onrender.com/reserve";
+  const text =
+    `פנייה חדשה מהאתר:\n` +
+    `שם: ${name}\n` +
+    `אימייל: ${email}\n` +
+    `טלפון: ${phone}\n` +
+    `נושא: ${subject}\n` +
+    `הודעה:\n${message}`;
 
-  try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+  const encoded = encodeURIComponent(text);
 
-    const result = await res.json();
+  // כמה מספרים שאתה רוצה
+  const numbers = ["17866656827", "18454942600", "306981899433"];
 
-    if (result.available) {
-      alert("✔ ההודעה נשלחה לוואטסאפ!");
-    } else {
-      alert("❌ אין זמינות.");
-    }
-
-  } catch (err) {
-    alert("שגיאה בשרת.");
-  }
+  numbers.forEach(num => {
+    window.open(`https://wa.me/${num}?text=${encoded}`, "_blank");
+  });
 }
 </script>
-
         <footer>
             © 2026 Yasou Taverna Rhodes
         </footer>
