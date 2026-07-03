@@ -187,33 +187,41 @@ nav {
 </form>
 
 <script>
-function sendToWhatsApp(e) {
+async function sendToWhatsApp(e) {
   e.preventDefault();
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const phone = document.getElementById("phone").value;
-  const subject = document.getElementById("subject").value;
-  const message = document.getElementById("message").value;
+  const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    subject: document.getElementById("subject").value,
+    message: document.getElementById("message").value
+  };
 
-  const text =
-    `פנייה חדשה מהאתר:\n` +
-    `שם: ${name}\n` +
-    `אימייל: ${email}\n` +
-    `טלפון: ${phone}\n` +
-    `נושא: ${subject}\n` +
-    `הודעה:\n${message}`;
+  // כתובת השרת שלך ב‑Render
+  const API_URL = "https://yasou-server.onrender.com/reserve";
 
-  const encoded = encodeURIComponent(text);
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-  // כמה מספרים שאתה רוצה
-  const numbers = ["17866656827", "972532808988", "306981899433"];
+    const result = await res.json();
 
-  numbers.forEach(num => {
-    window.open(`https://wa.me/${num}?text=${encoded}`, "_blank");
-  });
+    if (result.available) {
+      alert("✔ ההודעה נשלחה לוואטסאפ!");
+    } else {
+      alert("❌ אין זמינות.");
+    }
+
+  } catch (err) {
+    alert("שגיאה בשרת.");
+  }
 }
 </script>
+
         <footer>
             © 2026 Yasou Taverna Rhodes
         </footer>
