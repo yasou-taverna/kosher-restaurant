@@ -206,7 +206,7 @@ nav {
       statusEl.textContent = "בודק זמינות...";
 
       try {
-        const res = await fetch("https://YOUR-SERVER-URL/reserve", {
+        const res = await fetch("https://yasou-server.onrender.com/reserve", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
