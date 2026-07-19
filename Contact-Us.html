@@ -1,176 +1,157 @@
-<!doctype html>
+<!DOCTYPE html>
 <html dir="rtl" lang="he">
 
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <link href="images/icon.ico" rel="icon" type="image/x-icon" />
-<title>דף הבית – טברנה יאסו רודוס</title>
+<title>צור קשר – טברנה יאסו רודוס</title>
 <style>
-:root {
-	--bg: #f6f2ea;
-	--panel: #fffdf8;
-	--panel-strong: #fff6e4;
-	--text: #1f2520;
-	--muted: #6e746d;
-	--line: #ded7ca;
-	--brand: #206c5b;
-	--brand-dark: #12483c;
-	--gold: #f6f2ea;
-	--danger: #c9463d;
-	--shadow: 0 18px 45px rgba(39,33,23,.16);
-}
 * {
 	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 body {
-	margin: 0;
-	min-height: 100vh;
-	color: var(--text);
-	font-family: "Assistant","Segoe UI",Arial,sans-serif;
+	font-family: Arial,Helvetica,sans-serif;
+	background: #f7f7f7;
+	color: #222;
 }
-a {
-	color: inherit;
-	text-decoration: none;
-}
-header.hero {
+header {
 	background: linear-gradient(to bottom,#0069a8,#003b66);
 	color: white;
 	text-align: center;
 	padding: 30px 15px 20px;
 }
-.hero-logo {
+header h1 {
+	font-size: 40px;
+	letter-spacing: 3px;
+	margin-bottom: 5px;
+}
+header p {
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+.sidepanel.active {
+    color: #f7da95;
+    border-color: white;
+}
+.lang-switcher {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 10px;
+}
+.lang-btn {
+	background: rgba(255,255,255,0.15);
+	border: 2px solid rgba(255,255,255,0.5);
+	border-radius: 8px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 6px 15px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.lang-btn:hover {
+	background: rgba(255,255,255,0.3);
+}
+.lang-btn.active {
+	background: white;
+	color: #003b66;
+	border-color: white;
+}
+.flag {
+	font-size: 20px;
+}
+.container {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 20px;
+}
+input.search {
+	width: 100%;
+	padding: 14px;
+	font-size: 17px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+	display: none;
+}
+input.search.visible {
 	display: block;
-	width: 240px;
-	max-width: 70%;
-	margin: 0 auto 4px;
 }
-.hero-subtitle {
-	margin: 0;
-	color: var(--gold);
-	font-size: 16px;
-	font-weight: 700;
-	letter-spacing: .4px;
+.category {
+	margin-top: 28px;
 }
-.page-wrap {
-	max-width: 900px;
-	margin: 32px auto 60px;
-	padding: 0 18px;
+.category h2 {
+	background: #0069a8;
+	color: white;
+	padding: 12px 16px;
+	border-radius: 10px;
+	font-size: 20px;
+	margin-bottom: 12px;
+	display: none;
+}
+.category h2.visible {
+	display: block;
+}
+.menu {
+	display: grid;
+	grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+	gap: 14px;
 }
 .card {
-	background: var(--panel);
-	border-radius: 22px;
-	padding: 26px 26px 30px;
-	box-shadow: var(--shadow);
-	border: 1px solid rgba(222,215,202,.8);
-	position: relative;
+	background: white;
+	padding: 16px;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	display: none;
+}
+.card.visible {
+	display: block;
+}
+.card h3 {
+	color: #0069a8;
+	margin-bottom: 6px;
+	font-size: 17px;
+}
+.card .price {
+	font-size: 21px;
+	font-weight: bold;
+	display: block;
+	margin-top: 4px;
+	float: left;
+}
+.card.ltr .price {
+	float: right;
+}
+.card h3 {
 	overflow: hidden;
 }
-.card::before {
-	content: "";
-	position: absolute;
-	inset: -40%;
-	background: radial-gradient(circle at 0 0, rgba(217,159,47,.12), transparent 55%), radial-gradient(circle at 100% 100%, rgba(32,108,91,.12), transparent 55%);
-	opacity: .9;
-	pointer-events: none;
+.card p {
+	color: #777;
+	font-size: 14px;
+	margin-top: 4px;
 }
-.card-inner {
-	position: relative;
-	z-index: 1;
+.card.ltr {
+	direction: ltr;
+	text-align: left;
 }
-h1 {
-	margin: 0 0 10px;
-	font-size: 2rem;
-	letter-spacing: .5px;
+.fullrow {
+	grid-column: 1/-1;
+}
+footer {
+	background: #003b66;
+	color: white;
+	padding: 20px;
 	text-align: center;
-	color: #444;
+	margin-top: 40px;
+	font-size: 15px;
 }
-.subtitle {
-	margin: 0 0 18px;
-	color: var(--muted);
-	font-size: 1.05rem;
-}
-section.block {
-	margin: 18px 0 12px;
-	padding: 14px 16px 16px;
-	border-radius: 16px;
-	background: rgba(255,255,255,.82);
-	border: 1px solid rgba(222,215,202,.9);
-}
-section.block.highlight {
-	background: var(--panel-strong);
-	border-color: rgba(217,159,47,.55);
-}
-section.block h2 {
-	margin: 0 0 8px;
-	font-size: 1.2rem;
-	color: var(--brand-dark);
-}
-p {
-	margin: 4px 0;
-	line-height: 1.6;
-	font-size: 1rem;
-}
-.list {
-	margin: 4px 0 6px;
-	padding: 0;
-	list-style: none;
-}
-.list li {
-	margin: 2px 0;
-	line-height: 1.6;
-}
-.list li::before {
-	content: "• ";
-	color: var(--brand);
-	font-weight: bold;
-}
-.badge {
-	display: inline-block;
-	padding: 4px 9px;
-	border-radius: 999px;
-	background: #fff;
-	border: 1px solid var(--line);
-	font-size: .9rem;
-	margin: 4px 4px 4px 0;
-}
-.badge.gold {
-	border-color: var(--gold);
-	color: var(--gold);
-	background: #fffaf0;
-}
-.badge.brand {
-	border-color: var(--brand);
-	color: var(--brand-dark);
-	background: #e9fbf5;
-}
-.phone {
-	font-weight: 900;
-	color: var(--brand-dark);
-}
-.note {
-	font-size: .95rem;
-	color: var(--muted);
-	margin-top: 6px;
-}
-.danger {
-	color: var(--danger);
-	font-weight: 700;
-}
-@media (max-width:640px){
-.page-wrap {
-	margin: 22px auto 40px;
-	padding: 0 12px;
-}
-.card {
-	padding: 20px 18px 22px;
-	border-radius: 18px;
-}
-h1 {
-	font-size: 1.7rem;
-}
-}
-</style>
-<style>
+
 /* כפתור פתיחה – מצד ימין וללא רקע */
 .openbtn {
 	font-size: 26px;
@@ -246,9 +227,9 @@ h1 {
 .contact-form button:hover {
 	background-color: #005ea6;
 }
+
 </style>
 </head>
-
 <body>
 
 <header class="hero">
@@ -265,8 +246,7 @@ h1 {
 		צור קשר</a> </div>
 </header>
 
-<main class="page-wrap">
-  <article class="card">
+<div class="container">
 	  <form class="contact-form" onsubmit="sendToWhatsApp(event)">
 		  <h2>צור קשר</h2>
 		  <label>שם מלא</label> <input id="name" required="" type="text"> <label>
@@ -276,9 +256,8 @@ h1 {
 		  <textarea id="message" required="" rows="5"></textarea>
 		  <button type="submit">שלח</button>
 	  </form>
-</article>
-</main>
-	<script>
+</div>
+<script>
 function sendToWhatsApp(e) {
   e.preventDefault();
 
