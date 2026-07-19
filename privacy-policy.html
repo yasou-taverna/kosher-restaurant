@@ -157,19 +157,62 @@ p {
 	color: var(--danger);
 	font-weight: 700;
 }
-@media (max-width:640px){
-.page-wrap {
-	margin: 22px auto 40px;
-	padding: 0 12px;
+/* ריספונסיביות כללית */
+@media (max-width: 640px) {
+
+    header.hero {
+        padding: 18px 10px;
+    }
+
+    .hero-logo {
+        width: 180px;
+        max-width: 80%;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+        line-height: 1.55;
+    }
+
+    section.block {
+        padding: 12px 14px;
+    }
+
+    .openbtn {
+        font-size: 22px;
+        top: 14px;
+        right: 14px;
+        padding: 6px 10px;
+    }
+
+    .sidepanel a {
+        font-size: 20px;
+        padding: 10px 20px;
+    }
+
+    .card {
+        padding: 18px 16px 20px;
+        border-radius: 16px;
+    }
+
+    .page-wrap {
+        margin: 20px auto 35px;
+        padding: 0 10px;
+    }
 }
-.card {
-	padding: 20px 18px 22px;
-	border-radius: 18px;
-}
-h1 {
-	font-size: 1.7rem;
-}
-}
+
 </style>
 <style>
 /* כפתור פתיחה – מצד ימין וללא רקע */
