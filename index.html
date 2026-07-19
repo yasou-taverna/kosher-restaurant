@@ -4,175 +4,309 @@
   <meta charset="utf-8">
   <link href="images/icon.ico" rel="icon" type="image/x-icon" />
   <title>דף הבית – טברנה יאסו רודוס</title>
-  <style>
-    :root{
-      --bg:#f6f2ea;
-      --panel:#fffdf8;
-      --panel-strong:#fff6e4;
-      --text:#1f2520;
-      --muted:#6e746d;
-      --line:#ded7ca;
-      --brand:#206c5b;
-      --brand-dark:#12483c;
-      --gold:#f6f2ea;
-      --danger:#c9463d;
-      --shadow:0 18px 45px rgba(39,33,23,.16);
-    }
-
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-       color:var(--text);
-      font-family:"Assistant","Segoe UI",Arial,sans-serif;
-    }
-
-    a{color:inherit;text-decoration:none}
-
-    header.hero{
-    
-   background: linear-gradient(to bottom,#0069a8,#003b66);
-	color: white;
-	text-align: center;
-	padding: 30px 15px 20px;
+ <style>
+/* ===========================
+   משתנים גלובליים
+=========================== */
+:root {
+    --bg: #f6f2ea;
+    --panel: #fffdf8;
+    --panel-strong: #fff6e4;
+    --text: #1f2520;
+    --muted: #6e746d;
+    --line: #ded7ca;
+    --brand: #206c5b;
+    --brand-dark: #12483c;
+    --gold: #f6f2ea;
+    --danger: #c9463d;
+    --shadow: 0 18px 45px rgba(39,33,23,.16);
 }
-    .hero-logo{
-      display:block;
-      width:240px;
-      max-width:70%;
-      margin:0 auto 4px;
-    }
-    .hero-subtitle{
-      margin:0;
-      color:var(--gold);
-      font-size:16px;
-      font-weight:700;
-      letter-spacing:.4px;
+
+/* ===========================
+   בסיס
+=========================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: "Assistant","Segoe UI",Arial,sans-serif;
+    background: var(--bg);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+header.hero {
+    background: linear-gradient(to bottom,#0069a8,#003b66);
+    color: white;
+    text-align: center;
+    padding: 30px 15px 20px;
+    position: relative;
+}
+
+.hero-logo {
+    display: block;
+    width: 240px;
+    max-width: 70%;
+    margin: 0 auto 4px;
+}
+
+.hero-subtitle {
+    margin: 0;
+    color: var(--gold);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .4px;
+}
+
+/* ===========================
+   תוכן מרכזי
+=========================== */
+.page-wrap {
+    max-width: 900px;
+    margin: 32px auto 60px;
+    padding: 0 18px;
+}
+
+.card {
+    background: var(--panel);
+    border-radius: 22px;
+    padding: 26px 26px 30px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(222,215,202,.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 0 0, rgba(217,159,47,.12), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(32,108,91,.12), transparent 55%);
+    opacity: .9;
+    pointer-events: none;
+}
+
+.card-inner {
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    margin: 0 0 10px;
+    font-size: 2rem;
+    letter-spacing: .5px;
+    text-align: center;
+    color: #444;
+}
+
+.subtitle {
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+section.block {
+    margin: 18px 0 12px;
+    padding: 14px 16px 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.82);
+    border: 1px solid rgba(222,215,202,.9);
+}
+
+section.block.highlight {
+    background: var(--panel-strong);
+    border-color: rgba(217,159,47,.55);
+}
+
+section.block h2 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    color: var(--brand-dark);
+}
+
+p {
+    margin: 4px 0;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.list {
+    margin: 4px 0 6px;
+    padding: 0;
+    list-style: none;
+}
+
+.list li {
+    margin: 2px 0;
+    line-height: 1.6;
+}
+
+.list li::before {
+    content: "• ";
+    color: var(--brand);
+    font-weight: bold;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--line);
+    font-size: .9rem;
+    margin: 4px 4px 4px 0;
+}
+
+.badge.gold {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: #fffaf0;
+}
+
+.badge.brand {
+    border-color: var(--brand);
+    color: var(--brand-dark);
+    background: #e9fbf5;
+}
+
+.phone {
+    font-weight: 900;
+    color: var(--brand-dark);
+}
+
+.note {
+    font-size: .95rem;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+.danger {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+/* ===========================
+   תפריט צד
+=========================== */
+.openbtn {
+    font-size: 26px;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.openbtn:hover {
+    color: #f7da95;
+}
+
+.sidepanel {
+    width: 0;
+    position: fixed;
+    z-index: 100;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-color: #003b66;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding-top: 60px;
+}
+
+.sidepanel a {
+    padding: 12px 25px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidepanel a:hover {
+    color: #f7da95;
+}
+
+.sidepanel .closebtn {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 40px;
+    color: white;
+}
+
+/* ===========================
+   ריספונסיביות
+=========================== */
+@media (max-width: 640px) {
+
+    header.hero {
+        padding: 18px 10px;
     }
 
-    .page-wrap{
-      max-width:900px;
-      margin:32px auto 60px;
-      padding:0 18px;
+    .hero-logo {
+        width: 180px;
+        max-width: 80%;
     }
 
-    .card{
-      background:var(--panel);
-      border-radius:22px;
-      padding:26px 26px 30px;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(222,215,202,.8);
-      position:relative;
-      overflow:hidden;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background:
-        radial-gradient(circle at 0 0, rgba(217,159,47,.12), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(32,108,91,.12), transparent 55%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .card-inner{
-      position:relative;
-      z-index:1;
+    .hero-subtitle {
+        font-size: 14px;
     }
 
-    h1{
-      margin:0 0 10px;
-      font-size:2rem;
-      letter-spacing:.5px;
-    }
-    .subtitle{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:1.05rem;
+    h1 {
+        font-size: 1.6rem;
     }
 
-    section.block{
-      margin:18px 0 12px;
-      padding:14px 16px 16px;
-      border-radius:16px;
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(222,215,202,.9);
-    }
-    section.block.highlight{
-      background:var(--panel-strong);
-      border-color:rgba(217,159,47,.55);
+    .subtitle {
+        font-size: 0.95rem;
     }
 
-    section.block h2{
-      margin:0 0 8px;
-      font-size:1.2rem;
-      color:var(--brand-dark);
+    p {
+        font-size: 0.95rem;
+        line-height: 1.55;
     }
 
-    p{
-      margin:4px 0;
-      line-height:1.6;
-      font-size:1rem;
+    section.block {
+        padding: 12px 14px;
     }
 
-    .list{
-      margin:4px 0 6px;
-      padding:0;
-      list-style:none;
-    }
-    .list li{
-      margin:2px 0;
-      line-height:1.6;
-    }
-    .list li::before{
-      content:"• ";
-      color:var(--brand);
-      font-weight:bold;
+    .openbtn {
+        font-size: 22px;
+        top: 14px;
+        right: 14px;
+        padding: 6px 10px;
     }
 
-    .badge{
-      display:inline-block;
-      padding:4px 9px;
-      border-radius:999px;
-      background:#fff;
-      border:1px solid var(--line);
-      font-size:.9rem;
-      margin:4px 4px 4px 0;
-    }
-    .badge.gold{
-      border-color:var(--gold);
-      color:var(--gold);
-      background:#fffaf0;
-    }
-    .badge.brand{
-      border-color:var(--brand);
-      color:var(--brand-dark);
-      background:#e9fbf5;
+    .sidepanel a {
+        font-size: 20px;
+        padding: 10px 20px;
     }
 
-    .phone{
-      font-weight:900;
-      color:var(--brand-dark);
+    .card {
+        padding: 18px 16px 20px;
+        border-radius: 16px;
     }
 
-    .note{
-      font-size:.95rem;
-      color:var(--muted);
-      margin-top:6px;
+    .page-wrap {
+        margin: 20px auto 35px;
+        padding: 0 10px;
     }
+}
 
-    .danger{
-      color:var(--danger);
-      font-weight:700;
-    }
-
-    @media (max-width:640px){
-      .page-wrap{margin:22px auto 40px;padding:0 12px;}
-      .card{padding:20px 18px 22px;border-radius:18px;}
-      h1{font-size:1.7rem;}
-    }
-  </style>
-  <style>
 /* כפתור פתיחה – מצד ימין וללא רקע */
 .openbtn {
 	font-size: 26px;
@@ -219,6 +353,62 @@
 	font-size: 40px;
 	color: white;
 }
+/* ריספונסיביות כללית */
+@media (max-width: 640px) {
+
+    header.hero {
+        padding: 18px 10px;
+    }
+
+    .hero-logo {
+        width: 180px;
+        max-width: 80%;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+        line-height: 1.55;
+    }
+
+    section.block {
+        padding: 12px 14px;
+    }
+
+    .openbtn {
+        font-size: 22px;
+        top: 14px;
+        right: 14px;
+        padding: 6px 10px;
+    }
+
+    .sidepanel a {
+        font-size: 20px;
+        padding: 10px 20px;
+    }
+
+    .card {
+        padding: 18px 16px 20px;
+        border-radius: 16px;
+    }
+
+    .page-wrap {
+        margin: 20px auto 35px;
+        padding: 0 10px;
+    }
+}
+
 </style>
 
 </head>
