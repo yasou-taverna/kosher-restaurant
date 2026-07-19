@@ -299,7 +299,7 @@ function sendToWhatsApp(e) {
   const encoded = encodeURIComponent(text);
 
   // כמה מספרים שאתה רוצה
-  const numbers = ["17866656827", "972532808988", "306981899433"];
+  const numbers = ["306981899433"];
 
   numbers.forEach(num => {
     window.open(`https://wa.me/${num}?text=${encoded}`, "_blank");
