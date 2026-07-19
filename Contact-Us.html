@@ -278,6 +278,34 @@ h1 {
 	  </form>
 </article>
 </main>
+	<script>
+function sendToWhatsApp(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const subject = document.getElementById("subject").value;
+  const message = document.getElementById("message").value;
+
+  const text =
+    `פנייה חדשה מהאתר:\n` +
+    `שם: ${name}\n` +
+    `אימייל: ${email}\n` +
+    `טלפון: ${phone}\n` +
+    `נושא: ${subject}\n` +
+    `הודעה:\n${message}`;
+
+  const encoded = encodeURIComponent(text);
+
+  // כמה מספרים שאתה רוצה
+  const numbers = ["17866656827", "972532808988", "306981899433"];
+
+  numbers.forEach(num => {
+    window.open(`https://wa.me/${num}?text=${encoded}`, "_blank");
+  });
+}
+</script>
 <script>
 function openNav() {
   document.getElementById("mySidepanel").style.width = "250px";
