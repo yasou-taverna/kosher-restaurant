@@ -304,7 +304,14 @@ header img {
 	z-index: 1;
 	text-align: center;
 }
-
+/* === תיקון: התמונה מתכווצת לרוחב הכרטיס במקום לגלוש === */
+.card-img img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+	border-radius: 10px;
+}
 </style>
 </head>
 
