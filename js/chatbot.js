@@ -38,9 +38,9 @@
       position: fixed;
       bottom: 90px;
       left: 20px;
-      width: 320px;
+      width: 420px;
       max-width: calc(100vw - 40px);
-      height: 460px;
+      height: 480px;
       max-height: 72vh;
       background: #fff;
       border-radius: 16px;
@@ -75,8 +75,8 @@
     .ytb-msg.bot { justify-content: flex-start; flex-direction: row-reverse; }
     .ytb-msg.user { justify-content: flex-end; }
     .ytb-avatar {
-      width: 26px !important;
-      height: 26px !important;
+      width: 30px !important;
+      height: 30px !important;
       min-width: 30px;
       max-width: 30px;
       border-radius: 50%;
