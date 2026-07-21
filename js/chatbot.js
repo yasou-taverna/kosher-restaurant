@@ -1,58 +1,22 @@
 /* ===========================================================
    chatbot.js — בוט שאלות נפוצות לטברנה יאסו רודוס
-   הוספה לכל דף: <script src="chatbot.js"></script> לפני </body>
+   דורש שיטענו לפניו את faq-data.js:
+
+   <script src="faq-data.js"></script>
+   <script src="chatbot.js"></script>
    =========================================================== */
- 
+
 (function () {
- 
-  /* ---------- 1. כאן עורכים את השאלות והתשובות ---------- */
-  const FAQ = [
-    {
-      keywords: ["שעות", "פתוח", "פתיחה", "סגור", "מתי"],
-      question: "מה שעות הפעילות?",
-      answer: "אנחנו פתוחים ימים א׳–ה׳ בין 15:00–24:00. בימי שישי המסעדה סגורה לישיבה (רק איסוף קייטרינג), ובמוצ״ש נפתחים כשעה אחרי צאת השבת."
-    },
-    {
-      keywords: ["הזמנה", "להזמין", "לשריין", "שולחן", "מקום"],
-      question: "איך מזמינים שולחן?",
-      answer: "אפשר להזמין דרך דף ההזמנות באתר, ותוך כמה דקות תקבלו אישור בוואטסאפ. בערבי טברנה יוונית עם מוזיקה חיה יש מינימום הזמנה של 30€ לאדם."
-    },
-    {
-      keywords: ["פיקדון", "ביט", "תשלום", "מקדמה", "לבטל"],
-      question: "מה זה הפיקדון שצריך לשלם?",
-      answer: "לשמירת השולחן נדרש פיקדון של 100 ₪ באמצעות ביט. הפיקדון מוחזר בסוף הערב מול החשבון הכולל. שימו לב: ללא פיקדון ביט לא נשמר מקום מראש, ואי הגעה/ביטול מאוחר לא מזכים בהחזר."
-    },
-    {
-      keywords: ["כשר", "כשרות", "תעודה", "רבנות"],
-      question: "האם המסעדה כשרה?",
-      answer: "כן, טברנה יאסו רודוס היא מסעדה כשרה בהשגחת הרב. אפשר לצפות בתעודת הכשרות בעמוד הייעודי באתר."
-    },
-    {
-      keywords: ["תפריט", "מנות", "לאכול", "אוכל"],
-      question: "מה יש בתפריט?",
-      answer: "התפריט שלנו מציע מטבח טברנה יווני-ישראלי — מנות ים תיכוניות, בשרים על האש ומנות צמחוניות. אפשר לראות את התפריט המלא בעברית, אנגלית וצרפתית בעמוד התפריט באתר."
-    },
-    {
-      keywords: ["איפה", "כתובת", "מיקום", "להגיע", "ניווט"],
-      question: "איפה אתם נמצאים?",
-      answer: "הכתובת שלנו מופיעה בעמוד 'איך מגיעים' באתר, כולל מפה וכפתור ניווט ישיר לגוגל מפות."
-    },
-    {
-      keywords: ["מוזיקה", "טברנה", "רקדנים", "הופעה", "חי"],
-      question: "יש מוזיקה חיה?",
-      answer: "כן! בערבי טברנה יוונית מתקיימת מוזיקה יוונית חיה עם זמר, בוזוקי ורקדנים. הכניסה חינם, עם מינימום הזמנה של 30€ לאדם."
-    },
-    {
-      keywords: ["טלפון", "ליצור קשר", "וואטסאפ", "לדבר"],
-      question: "איך יוצרים קשר?",
-      answer: "הכי מהיר זה דרך עמוד 'צור קשר' באתר, או הודעת וואטסאפ ישירות לפי המספרים שמופיעים שם."
-    }
-  ];
- 
+
+  const FAQ = (typeof YTB_FAQ !== "undefined") ? YTB_FAQ : [];
   const FALLBACK_ANSWER =
     "לא הצלחתי למצוא תשובה מדויקת לשאלה הזו 🙂 אפשר לנסח אחרת, או ליצור קשר ישירות דרך עמוד 'צור קשר'.";
- 
-  /* ---------- 2. עיצוב (בהתאם לצבעי האתר הכחולים) ---------- */
+
+  if (FAQ.length === 0) {
+    console.warn("chatbot.js: לא נמצא מאגר שאלות (YTB_FAQ). ודא ש-faq-data.js נטען לפני chatbot.js");
+  }
+
+  /* ---------- עיצוב ---------- */
   const style = document.createElement("style");
   style.textContent = `
     #ytb-chat-btn {
@@ -76,8 +40,8 @@
       left: 20px;
       width: 320px;
       max-width: calc(100vw - 40px);
-      height: 440px;
-      max-height: 70vh;
+      height: 460px;
+      max-height: 72vh;
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 10px 35px rgba(0,0,0,.25);
@@ -98,6 +62,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
     }
     #ytb-chat-header span { cursor: pointer; font-size: 20px; }
     #ytb-chat-body {
@@ -118,14 +83,20 @@
     }
     .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-left-radius: 4px; }
     .ytb-msg.user .ytb-bubble { background: #0069a8; color: #fff; border-bottom-right-radius: 4px; }
+
+    /* שורת כפתורי הצעה - נגללת אופקית, לא תופסת גובה */
     #ytb-quick {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
       gap: 6px;
       padding: 8px 10px;
       background: #fff;
       border-top: 1px solid #eee;
+      flex-shrink: 0;
+      max-height: 40px;
     }
+    #ytb-quick::-webkit-scrollbar { height: 4px; }
     .ytb-chip {
       background: #eaf3fb;
       color: #003b66;
@@ -134,12 +105,15 @@
       padding: 5px 10px;
       font-size: 12px;
       cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     #ytb-chat-input-row {
       display: flex;
       border-top: 1px solid #eee;
       padding: 8px;
       gap: 6px;
+      flex-shrink: 0;
     }
     #ytb-chat-input {
       flex: 1;
@@ -158,17 +132,18 @@
       height: 38px;
       font-size: 16px;
       cursor: pointer;
+      flex-shrink: 0;
     }
   `;
   document.head.appendChild(style);
- 
-  /* ---------- 3. בניית ה-HTML ---------- */
+
+  /* ---------- בניית ה-HTML ---------- */
   const btn = document.createElement("button");
   btn.id = "ytb-chat-btn";
   btn.setAttribute("aria-label", "פתח צ׳אט שאלות נפוצות");
   btn.textContent = "💬";
   document.body.appendChild(btn);
- 
+
   const win = document.createElement("div");
   win.id = "ytb-chat-window";
   win.innerHTML = `
@@ -184,12 +159,12 @@
     </div>
   `;
   document.body.appendChild(win);
- 
+
   const body = win.querySelector("#ytb-chat-body");
   const quick = win.querySelector("#ytb-quick");
   const input = win.querySelector("#ytb-chat-input");
- 
-  /* ---------- 4. לוגיקה ---------- */
+
+  /* ---------- לוגיקה ---------- */
   function addMessage(text, from) {
     const row = document.createElement("div");
     row.className = "ytb-msg " + from;
@@ -200,7 +175,7 @@
     body.appendChild(row);
     body.scrollTop = body.scrollHeight;
   }
- 
+
   function findAnswer(text) {
     const clean = text.trim().toLowerCase();
     let best = null;
@@ -217,7 +192,7 @@
     });
     return best ? best.answer : FALLBACK_ANSWER;
   }
- 
+
   function handleSend(text) {
     if (!text.trim()) return;
     addMessage(text, "user");
@@ -226,28 +201,28 @@
       addMessage(findAnswer(text), "bot");
     }, 300);
   }
- 
-  // כפתורי שאלות מהירות
-  FAQ.forEach(item => {
+
+  // כפתורי הצעה מהירים — רק פריטים עם quick:true
+  // (כדי שרשימת שאלות ארוכה לא תמלא את המסך, כל השאר נגישים בהקלדה חופשית)
+  FAQ.filter(item => item.quick).forEach(item => {
     const chip = document.createElement("button");
     chip.className = "ytb-chip";
     chip.textContent = item.question;
     chip.onclick = () => handleSend(item.question);
     quick.appendChild(chip);
   });
- 
+
   win.querySelector("#ytb-chat-send").onclick = () => handleSend(input.value);
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") handleSend(input.value);
   });
- 
+
   btn.onclick = () => {
     win.classList.toggle("open");
     if (win.classList.contains("open") && body.children.length === 0) {
-      addMessage("שלום! 👋 איך אפשר לעזור? אפשר ללחוץ על אחת השאלות למטה או להקליד שאלה חופשית.", "bot");
+      addMessage("שלום! 👋 איך אפשר לעזור? אפשר ללחוץ על אחת השאלות למטה, לגלול ימינה/שמאלה לעוד הצעות, או להקליד שאלה חופשית.", "bot");
     }
   };
   win.querySelector("#ytb-chat-close").onclick = () => win.classList.remove("open");
- 
-})();
 
+})();
