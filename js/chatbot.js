@@ -168,15 +168,24 @@
 
   /* ---------- לוגיקה ---------- */
   function addMessage(text, from) {
-    const row = document.createElement("div");
-    row.className = "ytb-msg " + from;
-    const bubble = document.createElement("div");
-    bubble.className = "ytb-bubble";
-    bubble.textContent = text;
-    row.appendChild(bubble);
-    body.appendChild(row);
-    body.scrollTop = body.scrollHeight;
+  const row = document.createElement("div");
+  row.className = "ytb-msg " + from;
+
+  if (from === "bot") {
+    const avatar = document.createElement("img");
+    avatar.className = "ytb-avatar";
+    avatar.src = "images/bot-icon.png";
+    avatar.alt = "בוט";
+    row.appendChild(avatar);
   }
+
+  const bubble = document.createElement("div");
+  bubble.className = "ytb-bubble";
+  bubble.textContent = text;
+  row.appendChild(bubble);
+  body.appendChild(row);
+  body.scrollTop = body.scrollHeight;
+}
 
   function findAnswer(text) {
     const clean = text.trim().toLowerCase();
