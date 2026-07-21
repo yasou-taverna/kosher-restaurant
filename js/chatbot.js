@@ -52,19 +52,29 @@
       direction: rtl;
       z-index: 999;
     }
-    #ytb-chat-window.open { display: flex; }
-    #ytb-chat-header {
-      background: linear-gradient(to bottom,#0069a8,#003b66);
-      color: #fff;
-      padding: 14px 16px;
-      font-size: 16px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    #ytb-chat-header span { cursor: pointer; font-size: 20px; }
+   #ytb-chat-header {
+  background: linear-gradient(to bottom,#0069a8,#003b66);
+  color: #fff;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+#ytb-chat-header span:not(#ytb-chat-close) {
+  text-align: center;
+}
+#ytb-chat-close {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 20px;
+}
     #ytb-chat-body {
       flex: 1;
       overflow-y: auto;
