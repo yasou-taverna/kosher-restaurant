@@ -72,15 +72,17 @@
       background: #f7f7f7;
     }
     .ytb-msg { margin-bottom: 10px; display: flex; }
-    .ytb-msg.bot { justify-content: flex-start; }
-    .ytb-msg.user { justify-content: flex-end; }
-    .ytb-bubble {
-      max-width: 80%;
-      padding: 9px 12px;
-      border-radius: 14px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+.ytb-msg.bot { justify-content: flex-start; }
+.ytb-msg.user { justify-content: flex-end; }
+.ytb-bubble {
+  max-width: 80%;
+  padding: 9px 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-left-radius: 4px; }
+.ytb-msg.user .ytb-bubble { background: #0069a8; color: #fff; border-bottom-right-radius: 4px; }
     .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-left-radius: 4px; }
     .ytb-msg.user .ytb-bubble { background: #0069a8; color: #fff; border-bottom-right-radius: 4px; }
 
