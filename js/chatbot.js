@@ -77,8 +77,8 @@
     .ytb-avatar {
       width: 26px !important;
       height: 26px !important;
-      min-width: 26px;
-      max-width: 26px;
+      min-width: 30px;
+      max-width: 30px;
       border-radius: 50%;
       flex-shrink: 0;
       background: #fff;
