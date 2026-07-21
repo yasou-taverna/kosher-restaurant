@@ -52,6 +52,7 @@
       direction: rtl;
       z-index: 999;
     }
+    #ytb-chat-window.open { display: flex; }
    #ytb-chat-header {
   background: linear-gradient(to bottom,#0069a8,#003b66);
   color: #fff;
