@@ -71,19 +71,29 @@
       padding: 12px;
       background: #f7f7f7;
     }
-    .ytb-msg { margin-bottom: 10px; display: flex; }
-.ytb-msg.bot { justify-content: flex-start; }
-.ytb-msg.user { justify-content: flex-end; }
-.ytb-bubble {
-  max-width: 80%;
-  padding: 9px 12px;
-  border-radius: 14px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-.ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-left-radius: 4px; }
-.ytb-msg.user .ytb-bubble { background: #0069a8; color: #fff; border-bottom-right-radius: 4px; }
-    .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-left-radius: 4px; }
+    .ytb-msg { margin-bottom: 10px; display: flex; align-items: flex-end; gap: 6px; }
+    .ytb-msg.bot { justify-content: flex-start; flex-direction: row-reverse; }
+    .ytb-msg.user { justify-content: flex-end; }
+    .ytb-avatar {
+      width: 26px !important;
+      height: 26px !important;
+      min-width: 26px;
+      max-width: 26px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #fff;
+      border: 1px solid #cfe2f3;
+      object-fit: contain;
+      display: block;
+    }
+    .ytb-bubble {
+      max-width: 80%;
+      padding: 9px 12px;
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-right-radius: 4px; }
     .ytb-msg.user .ytb-bubble { background: #0069a8; color: #fff; border-bottom-right-radius: 4px; }
 
     /* שורת כפתורי הצעה - נגללת אופקית, לא תופסת גובה */
@@ -168,24 +178,29 @@
 
   /* ---------- לוגיקה ---------- */
   function addMessage(text, from) {
-  const row = document.createElement("div");
-  row.className = "ytb-msg " + from;
+    const row = document.createElement("div");
+    row.className = "ytb-msg " + from;
 
-  if (from === "bot") {
-    const avatar = document.createElement("img");
-    avatar.className = "ytb-avatar";
-    avatar.src = "images/bot-icon.png";
-    avatar.alt = "בוט";
-    row.appendChild(avatar);
+    if (from === "bot") {
+      const avatar = document.createElement("img");
+      avatar.className = "ytb-avatar";
+      avatar.src = "images/bot-icon.png";
+      avatar.alt = "בוט";
+      avatar.style.width = "26px";
+      avatar.style.height = "26px";
+      avatar.style.borderRadius = "50%";
+      avatar.style.flexShrink = "0";
+      avatar.style.objectFit = "contain";
+      row.appendChild(avatar);
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = "ytb-bubble";
+    bubble.textContent = text;
+    row.appendChild(bubble);
+    body.appendChild(row);
+    body.scrollTop = body.scrollHeight;
   }
-
-  const bubble = document.createElement("div");
-  bubble.className = "ytb-bubble";
-  bubble.textContent = text;
-  row.appendChild(bubble);
-  body.appendChild(row);
-  body.scrollTop = body.scrollHeight;
-}
 
   function findAnswer(text) {
     const clean = text.trim().toLowerCase();
