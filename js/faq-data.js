@@ -33,7 +33,7 @@ const YTB_FAQ = [
 {
   keywords: ["הזמנה", "להזמין", "לשריין", "שולחן", "מקום", "רזרבציה"],
   question: "איך מזמינים שולחן?",
-    answer: " דרך דף ההזמנות: https://yasou-taverna.github.io/online-reservations/booking.html",
+    answer: " דרך דף ההזמנות:https://yasou-taverna.github.io/kosher-restaurant/booking.html",
   quick: false
 },
  {
