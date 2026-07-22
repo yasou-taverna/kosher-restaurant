@@ -38,9 +38,9 @@
       position: fixed;
       bottom: 90px;
       left: 20px;
-      width: 320px;
+      width: 420px;
       max-width: calc(100vw - 40px);
-      height: 460px;
+      height: 480px;
       max-height: 72vh;
       background: #fff;
       border-radius: 16px;
@@ -53,17 +53,29 @@
       z-index: 999;
     }
     #ytb-chat-window.open { display: flex; }
-    #ytb-chat-header {
-      background: linear-gradient(to bottom,#0069a8,#003b66);
-      color: #fff;
-      padding: 14px 16px;
-      font-size: 16px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
+      #ytb-chat-header {
+  background: linear-gradient(to bottom,#0069a8,#003b66);
+  color: #fff;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+#ytb-chat-header span:not(#ytb-chat-close) {
+  text-align: center;
+}
+#ytb-chat-close {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 20px;
+}
     #ytb-chat-header span { cursor: pointer; font-size: 20px; }
     #ytb-chat-body {
       flex: 1;
@@ -71,9 +83,21 @@
       padding: 12px;
       background: #f7f7f7;
     }
-    .ytb-msg { margin-bottom: 10px; display: flex; }
-    .ytb-msg.bot { justify-content: flex-start; }
+    .ytb-msg { margin-bottom: 10px; display: flex; align-items: flex-end; gap: 6px; }
+    .ytb-msg.bot { justify-content: flex-start; flex-direction: row-reverse; }
     .ytb-msg.user { justify-content: flex-end; }
+     .ytb-avatar {
+      width: 30px !important;
+      height: 30px !important;
+      min-width: 30px;
+      max-width: 30px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #fff;
+      border: 1px solid #cfe2f3;
+      object-fit: contain;
+      display: block;
+    }
     .ytb-bubble {
       max-width: 80%;
       padding: 9px 12px;
@@ -81,7 +105,7 @@
       font-size: 14px;
       line-height: 1.5;
     }
-    .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-left-radius: 4px; }
+    .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-right-radius: 4px; }
     .ytb-msg.user .ytb-bubble { background: #0069a8; color: #fff; border-bottom-right-radius: 4px; }
 
     /* שורת כפתורי הצעה - נגללת אופקית, לא תופסת גובה */
