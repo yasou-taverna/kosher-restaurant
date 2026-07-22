@@ -1,21 +1,21 @@
 /* ===========================================================
    chatbot.js — בוט שאלות נפוצות לטברנה יאסו רודוס
    דורש שיטענו לפניו את faq-data.js:
-
+ 
    <script src="faq-data.js"></script>
    <script src="chatbot.js"></script>
    =========================================================== */
-
+ 
 (function () {
-
+ 
   const FAQ = (typeof YTB_FAQ !== "undefined") ? YTB_FAQ : [];
   const FALLBACK_ANSWER =
     "לא הצלחתי למצוא תשובה מדויקת לשאלה הזו 🙂 אפשר לנסח אחרת, או ליצור קשר ישירות דרך עמוד 'צור קשר'.";
-
+ 
   if (FAQ.length === 0) {
     console.warn("chatbot.js: לא נמצא מאגר שאלות (YTB_FAQ). ודא ש-faq-data.js נטען לפני chatbot.js");
   }
-
+ 
   /* ---------- עיצוב ---------- */
   const style = document.createElement("style");
   style.textContent = `
@@ -53,30 +53,26 @@
       z-index: 999;
     }
     #ytb-chat-window.open { display: flex; }
-      #ytb-chat-header {
-  background: linear-gradient(to bottom,#0069a8,#003b66);
-  color: #fff;
-  padding: 14px 16px;
-  font-size: 16px;
-  font-weight: bold;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-}
-#ytb-chat-header span:not(#ytb-chat-close) {
-  text-align: center;
-}
-#ytb-chat-close {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 20px;
-}
-    #ytb-chat-header span { cursor: pointer; font-size: 20px; }
+    #ytb-chat-header {
+      background: linear-gradient(to bottom,#0069a8,#003b66);
+      color: #fff;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    #ytb-chat-close {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 20px;
+    }
     #ytb-chat-body {
       flex: 1;
       overflow-y: auto;
@@ -86,11 +82,10 @@
     .ytb-msg { margin-bottom: 10px; display: flex; align-items: flex-end; gap: 6px; }
     .ytb-msg.bot { justify-content: flex-start; flex-direction: row-reverse; }
     .ytb-msg.user { justify-content: flex-end; }
-     .ytb-avatar {
-      width: 30px !important;
-      height: 30px !important;
-      min-width: 30px;
-      max-width: 30px;
+    .ytb-avatar {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
       border-radius: 50%;
       flex-shrink: 0;
       background: #fff;
@@ -105,9 +100,9 @@
       font-size: 14px;
       line-height: 1.5;
     }
-    .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-right-radius: 4px; }
+    .ytb-msg.bot .ytb-bubble { background: #eaf3fb; color: #222; border-bottom-left-radius: 4px; }
     .ytb-msg.user .ytb-bubble { background: #0069a8; color: #fff; border-bottom-right-radius: 4px; }
-
+ 
     /* שורת כפתורי הצעה - נגללת אופקית, לא תופסת גובה */
     #ytb-quick {
       display: flex;
@@ -160,14 +155,14 @@
     }
   `;
   document.head.appendChild(style);
-
+ 
   /* ---------- בניית ה-HTML ---------- */
   const btn = document.createElement("button");
   btn.id = "ytb-chat-btn";
   btn.setAttribute("aria-label", "פתח צ׳אט שאלות נפוצות");
   btn.textContent = "💬";
   document.body.appendChild(btn);
-
+ 
   const win = document.createElement("div");
   win.id = "ytb-chat-window";
   win.innerHTML = `
@@ -183,12 +178,13 @@
     </div>
   `;
   document.body.appendChild(win);
-
+ 
   const body = win.querySelector("#ytb-chat-body");
   const quick = win.querySelector("#ytb-quick");
   const input = win.querySelector("#ytb-chat-input");
-
+ 
   /* ---------- לוגיקה ---------- */
+ 
   // הופך כתובת URL בטקסט לקישור לחיץ שנפתח בכרטיסייה חדשה
   function linkify(text) {
     const escaped = text
@@ -200,10 +196,19 @@
       `<a href="${url}" target="_blank" rel="noopener" style="color:#0069a8;text-decoration:underline;">קישור לעמוד</a>`
     );
   }
-
+ 
   function addMessage(text, from) {
     const row = document.createElement("div");
     row.className = "ytb-msg " + from;
+ 
+    if (from === "bot") {
+      const avatar = document.createElement("img");
+      avatar.className = "ytb-avatar";
+      avatar.src = "images/bot-icon.png";
+      avatar.alt = "בוט";
+      row.appendChild(avatar);
+    }
+ 
     const bubble = document.createElement("div");
     bubble.className = "ytb-bubble";
     if (from === "bot") {
@@ -217,7 +222,7 @@
     body.appendChild(row);
     body.scrollTop = body.scrollHeight;
   }
-
+ 
   function findAnswer(text) {
     const clean = text.trim().toLowerCase();
     let best = null;
@@ -234,7 +239,7 @@
     });
     return best ? best.answer : FALLBACK_ANSWER;
   }
-
+ 
   function handleSend(text) {
     if (!text.trim()) return;
     addMessage(text, "user");
@@ -243,7 +248,7 @@
       addMessage(findAnswer(text), "bot");
     }, 300);
   }
-
+ 
   // כפתורי הצעה מהירים — רק פריטים עם quick:true
   // (כדי שרשימת שאלות ארוכה לא תמלא את המסך, כל השאר נגישים בהקלדה חופשית)
   FAQ.filter(item => item.quick).forEach(item => {
@@ -253,12 +258,12 @@
     chip.onclick = () => handleSend(item.question);
     quick.appendChild(chip);
   });
-
+ 
   win.querySelector("#ytb-chat-send").onclick = () => handleSend(input.value);
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") handleSend(input.value);
   });
-
+ 
   btn.onclick = () => {
     win.classList.toggle("open");
     if (win.classList.contains("open") && body.children.length === 0) {
@@ -266,5 +271,16 @@
     }
   };
   win.querySelector("#ytb-chat-close").onclick = () => win.classList.remove("open");
-
+ 
 })();
+ 
+
+
+
+
+
+
+
+
+
+
