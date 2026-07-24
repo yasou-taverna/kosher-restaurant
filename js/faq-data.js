@@ -87,8 +87,8 @@ const YTB_FAQ = [
 {
   keywords: ["מגיע עם אורז", "יש אורז", "תוספת אורז", "מה מגיע עם המנה", "מה כלול במנה"],
   question: "מה מגיע עם המנות העיקריות?",
-  answer: "כל המנות העיקריות מגיעות עם אורז לבן. ניתן להחליף או להוסיף תוספות אחרות בתשלום - התוספות המלאות מופיעות בעמוד התפריט.:https://yasou-taverna.github.io/kosher-restaurant/menu.html",
-  quick: false
+  answer: ".כל המנות העיקריות מגיעות עם אורז לבן. ניתן להחליף או להוסיף תוספות אחרות בתשלום - התוספות המלאות מופיעות בעמוד התפריט: https://yasou-taverna.github.io/kosher-restaurant/menu.html",
+  quick: true
 },
 {
   keywords: ["מחיר", "אירו", "תשלום", "עלות"],
