@@ -79,11 +79,11 @@ const YTB_FAQ = [
   quick: true
 },
 {
-  keywords: ["תפריט", "מנות", "לאכול", "אוכל"],
+  keywords: ["אפשר לראות תפריט", "לינק לתפריט", "לפתוח תפריט"],
   question: "אפשר לראות את התפריט?",
-  answer: "כן אפשר דרך דף התפריט שלנו : https://yasou-taverna.github.io/kosher-restaurant/Location.html",
+  answer: "התפריט שלנו מציע מטבח טברנה יווני-ישראלי — מנות ים תיכוניות, בשרים על האש ומנות צמחוניות. אפשר לראות את התפריט המלא בעברית, אנגלית וצרפתית באתר: https://yasou-taverna.github.io/kosher-restaurant/menu.html",
   quick: true
-},   
+},  
 {
   keywords: ["תפריט", "שבת", "שישי", "חמין"],
   question: "יש תפריט שבת?",
