@@ -1,7 +1,3 @@
-
-
-
-
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
@@ -304,156 +300,18 @@ textarea:focus {
     margin-top: 12px;
   }
 }
-
-/* ===========================
-   HEADER - זהה בכל הדפים
-=========================== */
-header {
-	background: linear-gradient(to bottom, #0069a8, #003b66);
-	color: white;
-	text-align: center;
-	padding: 30px 15px 20px;
-	position: relative;
-}
-
-header h1 {
-	font-size: 40px;
-	letter-spacing: 3px;
-	margin-bottom: 5px;
-}
-
-header p {
-	font-size: 18px;
-	margin-bottom: 15px;
-}
-
-header img {
-	margin-bottom: 8px;
-}
-
-/* כפתור פתיחת תפריט צד */
-.openbtn {
-	font-size: 26px;
-	cursor: pointer;
-	background-color: transparent;
-	color: white;
-	padding: 10px 15px;
-	border: none;
-	position: absolute;
-	top: 20px;
-	right: 20px;
-}
-
-.openbtn:hover {
-	color: #f7da95;
-}
-
-/* פנל ניווט צד */
-.sidepanel {
-	width: 0;
-	position: fixed;
-	z-index: 100;
-	height: 100%;
-	top: 0;
-	right: 0;
-	background-color: #003b66;
-	overflow-x: hidden;
-	transition: 0.4s;
-	padding-top: 60px;
-}
-
-.sidepanel a {
-	padding: 12px 25px;
-	text-decoration: none;
-	font-size: 22px;
-	color: #ffffff;
-	display: block;
-	transition: 0.3s;
-}
-
-.sidepanel a:hover,
-.sidepanel a.active {
-	color: #f7da95;
-}
-
-.sidepanel .closebtn {
-	position: absolute;
-	top: 10px;
-	left: 20px;
-	font-size: 40px;
-	color: white;
-}
-
-/* מיתוג שפה (בדף התפריט) */
-.lang-switcher {
-	display: flex;
-	justify-content: center;
-	gap: 12px;
-	margin-top: 10px;
-}
-
-.lang-btn {
-	background: rgba(255,255,255,0.15);
-	border: 2px solid rgba(255,255,255,0.5);
-	border-radius: 8px;
-	color: white;
-	padding: 6px 12px;
-	cursor: pointer;
-	font-size: 14px;
-}
-
-.lang-btn.active {
-	background: white;
-	color: #003b66;
-}
-
-/* ===========================
-   ריספונסיביות משותפת
-=========================== */
-@media (max-width: 640px) {
-	header {
-		padding: 18px 10px;
-	}
-
-	header h1 {
-		font-size: 28px;
-	}
-
-	header p {
-		font-size: 15px;
-	}
-
-	.openbtn {
-		font-size: 22px;
-		top: 14px;
-		right: 14px;
-		padding: 6px 10px;
-	}
-
-	.sidepanel a {
-		font-size: 20px;
-		padding: 10px 20px;
-	}
-}  
-
 </style>
 </head>
 
 <body>
 <header class="hero">
-	<button class="openbtn" onclick="openNav()">☰</button>
-    <img alt="טברנה יאסו רודוס" height="48" src="images/Logo.png" width="200">
-	<p class="hero-subtitle">Kosher Tavern Cuisine</p>
-	<div id="mySidepanel" class="sidepanel">
-		<a class="closebtn" href="javascript:void(0)" onclick="closeNav()">×</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/">דף הבית</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/">תפריט</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/privacy-policy.html">מדיניות פרטיות</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/Contact-Us.html">צור קשר</a> 
-	    <a href="https://yasou-taverna.github.io/kosher-restaurant/Kosher-Certificate.html">תעודת כשרות</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/Location.html">המיקום שלנו</a>
-		<a class="active" href="https://yasou-taverna.github.io/kosher-restaurant/booking.html">הזמנת שולחן</a>
-	</div>
+    <img src="assets/images/logo.png"
+         alt="YASOU"
+         class="hero-logo">
+
+    <p class="hero-subtitle">
+        הזמנת מקום מראש
+    </p>
 </header>
 
 <main class="wrap">
@@ -503,15 +361,6 @@ header img {
         <label>בחרו שעה</label>
         <select id="time">
           <option value="">בחרו שעה</option>
-          <option value="20:00">20:00</option>
-          <option value="20:05">20:05</option>
-          <option value="20:10">20:10</option>
-          <option value="20:30">20:30</option>
-          <option value="20:35">20:35</option>
-          <option value="21:00">21:00</option>
-          <option value="21:05">21:05</option>
-          <option value="21:10">21:10</option>
-          <option value="21:15">21:15</option>
         </select>
       </div>
 
@@ -616,12 +465,18 @@ const els = {
 let draft = null;
 let receipt = null;
 
-init();
-
 function init() {
   els.date.min = todayDateString();
   els.date.value = els.date.min;
+  refreshTimeOptions();
+  checkClosedDay();
+  loadHolidayDates();
 
+  els.date.addEventListener("change", () => {
+    showError(els.errorBox, "");
+    refreshTimeOptions();
+    checkClosedDay();
+  });
   els.continueBtn.addEventListener("click", continueToPayment);
   els.backBtn.addEventListener("click", backToForm);
   els.receiptFile.addEventListener("change", handleReceipt);
@@ -634,6 +489,80 @@ function todayDateString() {
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+// 0=ראשון, 5=שישי, 6=שבת
+function dayOfWeek(dateValue) {
+  if (!dateValue) return null;
+  const d = new Date(`${dateValue}T12:00:00`);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.getDay();
+}
+
+const ALL_TIME_OPTIONS = ["20:00", "20:05", "20:10", "20:30", "20:35", "21:00", "21:05", "21:10", "21:15"];
+// במוצאי שבת המסעדה פותחת רק ב-21:00
+const SATURDAY_TIME_OPTIONS = ALL_TIME_OPTIONS.filter((time) => time >= "21:00");
+
+function timeOptionsForDate(dateValue) {
+  return dayOfWeek(dateValue) === 6 ? SATURDAY_TIME_OPTIONS : ALL_TIME_OPTIONS;
+}
+
+function refreshTimeOptions() {
+  const options = timeOptionsForDate(els.date.value);
+  const currentValue = els.time.value;
+  els.time.innerHTML = `<option value="">בחרו שעה</option>` +
+    options.map((time) => `<option value="${time}">${time}</option>`).join("");
+  els.time.value = options.includes(currentValue) ? currentValue : "";
+}
+
+function isClosedDay(dateValue) {
+  return dayOfWeek(dateValue) === 5; // שישי
+}
+
+// חגי ישראל - נטענים מ-Hebcal (API ציבורי) כדי שלא יצטרכו עדכון ידני כל שנה
+let closedHolidayDates = new Set();
+
+async function loadHolidayDates() {
+  try {
+    const startYear = new Date().getFullYear();
+    const responses = await Promise.all(
+      [startYear, startYear + 1].map((year) =>
+        fetch(`https://www.hebcal.com/hebcal?cfg=json&v=1&maj=on&min=off&mod=off&nx=off&il=on&year=${year}`)
+          .then((r) => r.json())
+          .catch(() => null)
+      )
+    );
+    responses.forEach((data) => {
+      (data?.items || []).forEach((item) => {
+        if (item.yomtov && item.date) {
+          closedHolidayDates.add(String(item.date).slice(0, 10));
+        }
+      });
+    });
+  } catch (error) {
+    console.warn("טעינת חגים נכשלה, בדיקת חגים לא תפעל:", error);
+  } finally {
+    checkClosedDay();
+  }
+}
+
+function closedDayReason(dateValue) {
+  if (isClosedDay(dateValue)) return "המסעדה סגורה בימי שישי. נא לבחור תאריך אחר.";
+  if (closedHolidayDates.has(dateValue)) return "המסעדה סגורה לרגל חג. נא לבחור תאריך אחר.";
+  return "";
+}
+
+function checkClosedDay() {
+  const reason = closedDayReason(els.date.value);
+  if (reason) {
+    showError(els.errorBox, reason);
+    els.continueBtn.disabled = true;
+  } else {
+    els.continueBtn.disabled = false;
+    if (els.errorBox.textContent.startsWith("המסעדה סגורה")) {
+      showError(els.errorBox, "");
+    }
+  }
 }
 
 function continueToPayment() {
@@ -679,6 +608,8 @@ function validateForm() {
   if (!isValidPhone(els.phone.value)) return "נא למלא מספר טלפון תקין כולל קידומת מדינה במידת הצורך.";
   if (!els.date.value) return "נא לבחור תאריך.";
   if (els.date.value < todayDateString()) return "התאריך שנבחר כבר עבר. נא לבחור תאריך עתידי.";
+  const closed = closedDayReason(els.date.value);
+  if (closed) return closed;
   if (!els.time.value) return "נא לבחור שעה.";
   if (!els.agree.checked) return "יש לאשר את תנאי ההזמנה והפיקדון.";
   return "";
@@ -798,18 +729,8 @@ function escapeHtml(value) {
 function showError(element, message) {
   element.textContent = message;
 }
-</script>
-<script>
-function openNav() {
-  document.getElementById("mySidepanel").style.width = "250px";
-}
 
-function closeNav() {
-  document.getElementById("mySidepanel").style.width = "0";
-}
+init();
 </script>
-<script src="js/faq-data.js"></script>	
-<script src="js/chatbot.js"></script>
-
 </body>
 </html>
