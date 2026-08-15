@@ -647,7 +647,7 @@ async function continueToPayment() {
       return;
     }
   } catch (error) {
-    showError(els.errorBox, "לא הצלחנו לבדוק זמינות. נא לנסות שוב בעוד רגע.");
+    showError(els.errorBox, "עקב פניות רבות המערכת עמוסה כרגע. נא לנסות שוב בעוד כמה שניות.");
     console.warn(error);
     return;
   } finally {
@@ -780,7 +780,7 @@ async function submitReservation() {
   } catch (error) {
     els.submitBtn.disabled = false;
     els.submitBtn.textContent = "שליחת ההזמנה";
-    showError(els.paymentErrorBox, "לא הצלחנו לשלוח את ההזמנה. נא לנסות שוב בעוד רגע.");
+    showError(els.paymentErrorBox, "עקב עומס במערכת ההזמנה לא נשלחה. נא לנסות שוב בעוד רגע.");
     console.warn(error);
   }
 }
