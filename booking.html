@@ -1,11 +1,12 @@
 
+
+
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>הזמנת שולחן | Yasou Taverna</title>
-<link href="css/style.css" rel="stylesheet">	
 <link rel="icon" type="image/x-icon" href="images/icon.ico">
 <style>
 * {
@@ -29,6 +30,7 @@ body {
   border-bottom: 3px solid #faf5ea;
   padding: 8px 20px 8px;
   text-align: center;
+  position: relative;
 }
 
 .hero-logo {
@@ -45,6 +47,57 @@ body {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.3px;
+}
+
+.openbtn {
+  font-size: 26px;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  position: absolute;
+  top: 14px;
+  right: 20px;
+}
+
+.openbtn:hover {
+  color: #f7da95;
+}
+
+.sidepanel {
+  width: 0;
+  position: fixed;
+  z-index: 100;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background-color: #003b66;
+  overflow-x: hidden;
+  transition: 0.4s;
+  padding-top: 60px;
+}
+
+.sidepanel a {
+  padding: 12px 25px;
+  text-decoration: none;
+  font-size: 22px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover,
+.sidepanel a.active {
+  color: #f7da95;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 40px;
+  color: white;
 }
 
 .wrap {
@@ -312,6 +365,18 @@ textarea:focus {
     font-size: 14px;
   }
 
+  .openbtn {
+    font-size: 22px;
+    top: 10px;
+    right: 12px;
+    padding: 6px 10px;
+  }
+
+  .sidepanel a {
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+
   .wrap {
     margin-top: 12px;
   }
@@ -321,21 +386,26 @@ textarea:focus {
 
 <body>
 <header class="hero">
- <button class="openbtn" onclick="openNav()">☰</button>
- <img alt="טברנה יאסו רודוס" height="48" src="images/Logo.png" width="200">
-	<p class="hero-subtitle">הזמנת מקום מראש</p>
-  <div id="mySidepanel" class="sidepanel">
-		<a class="closebtn" href="javascript:void(0)" onclick="closeNav()">×</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/">דף הבית</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/menu.html">תפריט</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/privacy-policy.html">מדיניות פרטיות</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/Contact-Us.html">צור קשר</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/Kosher-Certificate.html">תעודת כשרות</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/Location.html">איך מגיעים</a>
-	    <a class="active" href="https://yasou-taverna.github.io/kosher-restaurant/booking.html">הזמנת שולחן</a>
-		<a href="https://yasou-taverna.github.io/kosher-restaurant/Gallery.html">גלריה</a>
-  </div>
+    <button class="openbtn" onclick="openNav()" aria-label="פתיחת תפריט">☰</button>
+    <img src="images/Logo.png" alt="YASOU" class="hero-logo">
+
+    <p class="hero-subtitle">
+        הזמנת מקום מראש
+    </p>
+
+    <div id="mySidepanel" class="sidepanel">
+      <a class="closebtn" href="javascript:void(0)" onclick="closeNav()" aria-label="סגירת תפריט">×</a>
+      <a href="https://yasou-taverna.github.io/kosher-restaurant/">דף הבית</a>
+      <a href="https://yasou-taverna.github.io/kosher-restaurant/menu.html">תפריט</a>
+      <a href="https://yasou-taverna.github.io/kosher-restaurant/privacy-policy.html">מדיניות פרטיות</a>
+      <a href="https://yasou-taverna.github.io/kosher-restaurant/Contact-Us.html">צור קשר</a>
+      <a href="https://yasou-taverna.github.io/kosher-restaurant/Kosher-Certificate.html">תעודת כשרות</a>
+      <a href="https://yasou-taverna.github.io/kosher-restaurant/Location.html">איך מגיעים</a>
+      <a href="https://yasou-taverna.github.io/kosher-restaurant/Gallery.html">גלריה</a>
+      <a class="active" href="https://yasou-taverna.github.io/kosher-restaurant/booking.html">הזמנת שולחן</a>
+    </div>
 </header>
+
 <main class="wrap">
   <section class="card" id="stepForm">
     <h1>הזמנת שולחן</h1>
@@ -888,9 +958,6 @@ function showError(element, message) {
   element.textContent = message;
 }
 
-init();
-</script>
-<script>
 function openNav() {
   document.getElementById("mySidepanel").style.width = "250px";
 }
@@ -898,6 +965,8 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidepanel").style.width = "0";
 }
+
+init();
 </script>
 <script src="js/faq-data.js"></script>	
 <script src="js/chatbot.js"></script>
