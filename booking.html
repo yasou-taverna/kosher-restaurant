@@ -320,13 +320,20 @@ textarea:focus {
 
 <body>
 <header class="hero">
-    <img src="images/Logo.png" alt="YASOU" class="hero-logo">
-
-    <p class="hero-subtitle">
-        הזמנת מקום מראש
-    </p>
+ <button class="openbtn" onclick="openNav()">☰</button>
+ <img alt="טברנה יאסו רודוס" height="48" src="images/Logo.png" width="200">
+	<p class="hero-subtitle">הזמנת מקום מראש</p>
+  <div id="mySidepanel" class="sidepanel">
+		<a class="closebtn" href="javascript:void(0)" onclick="closeNav()">×</a>
+		<a href="https://yasou-taverna.github.io/kosher-restaurant/">דף הבית</a>
+		<a href="https://yasou-taverna.github.io/kosher-restaurant/menu.html">תפריט</a>
+		<a href="https://yasou-taverna.github.io/kosher-restaurant/privacy-policy.html">מדיניות פרטיות</a>
+		<a href="https://yasou-taverna.github.io/kosher-restaurant/Contact-Us.html">צור קשר</a>
+		<a href="https://yasou-taverna.github.io/kosher-restaurant/Kosher-Certificate.html">תעודת כשרות</a>
+		<a href="https://yasou-taverna.github.io/kosher-restaurant/Location.html">איך מגיעים</a>
+		<a class="active" href="https://yasou-taverna.github.io/kosher-restaurant/Gallery.html">גלריה</a>
+  </div>
 </header>
-
 <main class="wrap">
   <section class="card" id="stepForm">
     <h1>הזמנת שולחן</h1>
